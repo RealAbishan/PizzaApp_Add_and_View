@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct MainView: View {
-    
+    @ObservedObject var dataStore: DataStore = DataStore()
     @State private var foodType = 0
     @State private var isSheetShowing:Bool = false
-    @ObservedObject var pizzaViewModel: PizzaViewModel = PizzaViewModel()
+    @State private var isModalOpen: Bool = false
+    //@ObservedObject var pizzaViewModel: PizzaViewModel = PizzaViewModel()
 
-
+    @State private var newPizza = PizzaModel(name: "", ingredients: "", imageName: "", thumbnailName: "", type: "")
+    
     var body: some View {
         VStack{
             NavigationStack{
@@ -32,24 +34,17 @@ struct MainView: View {
                     switch foodType{
                     case 1:
                         MeatPage()
-                    
+
                     case 2:
                         VeggiePage()
-                        
+
                     default:
                         AllPage()
-                        
                     }
-                    
                 }
-                
                 .toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button {
-                            //Insert New Fruit
-    //                            pizzaViewModel.addPizzas()
-    //                            print("New Fruit Add Dev test")
-                            
                             isSheetShowing.toggle()
                         } label: {
                             Image(systemName: "plus")
@@ -58,9 +53,11 @@ struct MainView: View {
                     }
                 }
                 .sheet(isPresented: $isSheetShowing){
-                        AddNewPizzaView()
+                    AddNewPizzaView(pizzaModel: $newPizza)
+                        .environmentObject(DataStore())
                     }
             }
+           // .foregroundColor(Color.orange)
             
         }
     }
@@ -69,20 +66,52 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+//            .environmentObject(DataStore())
     }
 }
 
 
 struct AllPage: View{
     @State var foodType = 0
-    @ObservedObject var pizzaViewModel: PizzaViewModel = PizzaViewModel()
+   // @ObservedObject var pizzaViewModel: PizzaViewModel = PizzaViewModel()
+    @ObservedObject var dataStore: DataStore = DataStore()
 
 
     var body: some View{
         NavigationView{
-            List(PizzaModel.allPizzaModel){ pizza in
-                Text("\(pizza.name)")
-                
+            VStack {
+                List() {
+                    ForEach(dataStore.pizzas){ pizza in
+                        HStack(alignment: .center){
+                            Image("\(pizza.imageName)")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150)
+                                .frame(height: 150)
+                            
+                            VStack(alignment: .leading){
+                                Text("\(pizza.name)")
+                                    .font(.system(size: 18))
+                                    .bold()
+                                    .foregroundColor(Constants.newPrimaryColor)
+                                    .multilineTextAlignment(.leading)
+                                
+                                Text("\(pizza.ingredients)")
+                                    .multilineTextAlignment(.leading)
+                            }
+                            .frame(width: 150)
+                            
+                            
+                            
+                        }
+                        
+                        
+                        
+                        
+
+                    }
+                }
+                .listStyle(InsetGroupedListStyle())
             }
         }
         .navigationViewStyle(.stack)
@@ -91,16 +120,47 @@ struct AllPage: View{
 
 struct MeatPage: View{
     @State var foodType = 0
-
+    @ObservedObject var dataStore: DataStore = DataStore()
+    init() {
+        UITableView.appearance().backgroundColor = .red
+        
+    }
     var body: some View{
         NavigationView{
-            List(PizzaModel.allPizzaModel){ pizza in
-                
-                if(pizza.type == PizzaType.meat){
-                    Text("\(pizza.name)")
+            ZStack {
+                List() {
+                    ForEach(dataStore.pizzas){ pizza in
+
+      //                  Text("\(pizza.name)")
+                        if(pizza.type == PizzaType.meat.rawValue){
+                            HStack(alignment: .center){
+                                Image("\(pizza.imageName)")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 150)
+                                    .frame(height: 150)
+                                
+                                VStack(alignment: .leading){
+                                    Text("\(pizza.name)")
+                                        .font(.system(size: 18))
+                                        .bold()
+                                        .foregroundColor(Constants.newPrimaryColor)
+                                        .multilineTextAlignment(.leading)
+                                    
+                                    Text("\(pizza.ingredients)")
+                                        .multilineTextAlignment(.leading)
+                                }
+                                .frame(width: 150)
+                                
+                                
+                                
+                            }
+                        }
+
+
+                    }
                 }
-                
-                
+                .listStyle(InsetGroupedListStyle())
             }
         }
         .navigationViewStyle(.stack)
@@ -109,16 +169,45 @@ struct MeatPage: View{
 
 struct VeggiePage: View{
     @State var foodType = 0
+    @ObservedObject var dataStore: DataStore = DataStore()
+
 
     var body: some View{
         NavigationView{
-            List(PizzaModel.allPizzaModel){ pizza in
-                
-                if(pizza.type == PizzaType.vegetarian){
-                    Text("\(pizza.name)")
+            ZStack {
+                List() {
+                    ForEach(dataStore.pizzas){ pizza in
+
+      //                  Text("\(pizza.name)")
+                        if(pizza.type == PizzaType.vegetarian.rawValue){
+                            HStack(alignment: .center){
+                                Image("\(pizza.imageName)")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 150)
+                                    .frame(height: 150)
+                                
+                                VStack(alignment: .leading){
+                                    Text("\(pizza.name)")
+                                        .font(.system(size: 18))
+                                        .bold()
+                                        .foregroundColor(Constants.newPrimaryColor)
+                                        .multilineTextAlignment(.leading)
+                                    
+                                    Text("\(pizza.ingredients)")
+                                        .multilineTextAlignment(.leading)
+                                }
+                                .frame(width: 150)
+                                
+                                
+                                
+                            }
+                        }
+
+
+                    }
                 }
-                
-                
+                .listStyle(InsetGroupedListStyle())
             }
         }
         .navigationViewStyle(.stack)

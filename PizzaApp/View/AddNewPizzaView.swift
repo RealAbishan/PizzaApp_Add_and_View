@@ -9,60 +9,99 @@ import SwiftUI
 
 struct AddNewPizzaView: View {
     
-    @State var pizzaName: String = ""
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var dataStore: DataStore
+    @ObservedObject var pizzaviewModel: PizzaViewModel = PizzaViewModel()
+    @Binding var pizzaModel: PizzaModel
+
+
+    //@EnvironmentObject var realManager: RealmManager
 
     var body: some View {
-        VStack{
-            HStack(spacing: 80){
-                Button {
-                    //
-                } label: {
-                    Text("Cancel")
-                }
-                
-                Text("New Pizza")
-                    .font(.system(size: 24))
-                
-                Button {
-                    //
-                } label: {
-                    Text("Save")
-                }
-                
-            }
-            
-            VStack{
+        NavigationView{
              Form {
-                 Section {
-                         TextField("Please Entyer Pizza Name", text: $pizzaName)
-                         .foregroundColor(Color.orange)
-                     }
-                 Section {
+                 VStack{
+                     Section(header: Text("Pizza Name")) {
+                         TextField("Please Enter Pizza Name", text: $pizzaModel.name)
+                             .foregroundColor(Color.orange)
+                         }
                      
-                     TextField("Please Entyer Pizza Name", text: $pizzaName)
-                         .foregroundColor(Color.orange)
-                         .lineLimit(5)
-                     }
-                 Section {
-                         TextField("Please Enter Image Name", text: $pizzaName)
-                     }
-                 Section {
-                         TextField("PLease Enter Image Thunail Name", text: $pizzaName)
-                     }
-                 Section {
-                         TextField("PLease Enter Pizza Type", text: $pizzaName)
+                     Spacer()
+                     Section(header: Text("Ingredients")) {
+                         
+                         TextField("Please Enter Ingredient Name", text: $pizzaModel.ingredients)
+                             .foregroundColor(Color.orange)
+                             .lineLimit(5)
+                         }
+                     Section(header: Text("Image Name")) {
+                         TextField("Please Enter Image Name", text: $pizzaModel.imageName)
+                         }
+                     Section(header: Text("Thumbnail Name")) {
+                         TextField("PLease Enter Image Thunail Name", text: $pizzaModel.thumbnailName)
+                         }
                      
-                     
+                     Section(header: Text("Type")) {
+                         Picker(selection: $pizzaModel.type, label: Text("Type")) {
+                             Text("Meat").tag("meat")
+                             Text("Vegetarian").tag("vegetarian")
+                         }
+                         .pickerStyle(SegmentedPickerStyle())
                      }
+                     
+                     Section {
+                         Button(action: {
+                             dataStore.pizzas.append(pizzaModel)
+                             presentationMode.wrappedValue.dismiss()
+                             dataStore.addPizzas(pizzaModel)
+          // save each time new one is added as alternative to didSet in class
+                         }) {
+                             Text("Add Pizza")
+                         }
+                         .disabled(pizzaModel.name.isEmpty || pizzaModel.ingredients.isEmpty || pizzaModel.imageName.isEmpty || pizzaModel.thumbnailName.isEmpty)
+                     }
+                 }
+                
              }
-            }
-            .padding()
+             .navigationTitle("Pizzas")
+             .navigationBarItems(leading: cancelButton, trailing: saveButton)
         }
+        
     }
 }
 
-struct AddNewPizzaView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddNewPizzaView()
+extension AddNewPizzaView {
+    func addPizza()
+    {
+        let pizza  = PizzaModel(name:  pizzaviewModel.name, ingredients: pizzaviewModel.ingredients, imageName: pizzaviewModel.imageName, thumbnailName: pizzaviewModel.thumbnailName, type: pizzaviewModel.type)
+    
+        dataStore.addPizzas(pizza)
+       // dataStore. (pizza)
+        presentationMode.wrappedValue.dismiss()
     }
+    
+    var cancelButton: some View{
+        Button("Cancel"){
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+
+//    var saveButton: some View{
+//        Button("Save", action: presentationMode.wrappedValue.dismiss)
+//            .disabled(pizzaviewModel.isDisabled)
+//
+//    }
+    
+    var saveButton: some View{
+        Button("Save", action: addPizza)
+            .disabled(pizzaviewModel.isDisabled)
+
+    }
+
 }
+
+//struct AddNewPizzaView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddNewPizzaView(pizzaModel: PizzaModel)
+//    }
+//}

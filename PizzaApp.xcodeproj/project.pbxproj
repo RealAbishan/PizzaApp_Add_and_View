@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A136E8729B64A9000D8C3B4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A136E8629B64A9000D8C3B4 /* Constants.swift */; };
 		3A599A3129B1CD5E0036AD86 /* PizzaAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A599A3029B1CD5E0036AD86 /* PizzaAppApp.swift */; };
 		3A599A3329B1CD5E0036AD86 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A599A3229B1CD5E0036AD86 /* ContentView.swift */; };
 		3A599A3529B1CD5F0036AD86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A599A3429B1CD5F0036AD86 /* Assets.xcassets */; };
@@ -15,11 +16,13 @@
 		3A599A4229B1CD8A0036AD86 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A599A4129B1CD8A0036AD86 /* FavouriteView.swift */; };
 		3A599A4429B1CF1E0036AD86 /* AddNewPizzaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A599A4329B1CF1E0036AD86 /* AddNewPizzaView.swift */; };
 		3AEE19B029B31307009536C1 /* PizzaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE19AF29B31307009536C1 /* PizzaModel.swift */; };
-		3AEE19B229B31379009536C1 /* PizzaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE19B129B31379009536C1 /* PizzaViewModel.swift */; };
+		3AEE19B229B31379009536C1 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE19B129B31379009536C1 /* DataStore.swift */; };
 		3AEE19B429B31819009536C1 /* NaviagtionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE19B329B31819009536C1 /* NaviagtionView.swift */; };
+		3AFF750A29B5BD1F00C7C690 /* PizzaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF750929B5BD1F00C7C690 /* PizzaViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A136E8629B64A9000D8C3B4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3A599A2D29B1CD5E0036AD86 /* PizzaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A599A3029B1CD5E0036AD86 /* PizzaAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaAppApp.swift; sourceTree = "<group>"; };
 		3A599A3229B1CD5E0036AD86 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,8 +32,9 @@
 		3A599A4129B1CD8A0036AD86 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
 		3A599A4329B1CF1E0036AD86 /* AddNewPizzaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPizzaView.swift; sourceTree = "<group>"; };
 		3AEE19AF29B31307009536C1 /* PizzaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaModel.swift; sourceTree = "<group>"; };
-		3AEE19B129B31379009536C1 /* PizzaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaViewModel.swift; sourceTree = "<group>"; };
+		3AEE19B129B31379009536C1 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		3AEE19B329B31819009536C1 /* NaviagtionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviagtionView.swift; sourceTree = "<group>"; };
+		3AFF750929B5BD1F00C7C690 /* PizzaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +48,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A136E8529B64A8500D8C3B4 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				3A136E8629B64A9000D8C3B4 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		3A599A2429B1CD5E0036AD86 = {
 			isa = PBXGroup;
 			children = (
@@ -63,10 +75,11 @@
 		3A599A2F29B1CD5E0036AD86 /* PizzaApp */ = {
 			isa = PBXGroup;
 			children = (
+				3A136E8529B64A8500D8C3B4 /* Constants */,
+				3AFF750829B5BCE000C7C690 /* DataStore */,
 				3AEE19AE29B312F9009536C1 /* Model */,
 				3A599A3E29B1CD6C0036AD86 /* View */,
 				3A599A3029B1CD5E0036AD86 /* PizzaAppApp.swift */,
-				3A599A3229B1CD5E0036AD86 /* ContentView.swift */,
 				3A599A3429B1CD5F0036AD86 /* Assets.xcassets */,
 				3A599A3629B1CD5F0036AD86 /* Preview Content */,
 			);
@@ -84,6 +97,7 @@
 		3A599A3E29B1CD6C0036AD86 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A599A3229B1CD5E0036AD86 /* ContentView.swift */,
 				3A599A3F29B1CD800036AD86 /* MainView.swift */,
 				3A599A4129B1CD8A0036AD86 /* FavouriteView.swift */,
 				3A599A4329B1CF1E0036AD86 /* AddNewPizzaView.swift */,
@@ -96,9 +110,17 @@
 			isa = PBXGroup;
 			children = (
 				3AEE19AF29B31307009536C1 /* PizzaModel.swift */,
-				3AEE19B129B31379009536C1 /* PizzaViewModel.swift */,
+				3AFF750929B5BD1F00C7C690 /* PizzaViewModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3AFF750829B5BCE000C7C690 /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				3AEE19B129B31379009536C1 /* DataStore.swift */,
+			);
+			path = DataStore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,9 +195,11 @@
 			files = (
 				3A599A3329B1CD5E0036AD86 /* ContentView.swift in Sources */,
 				3A599A4029B1CD800036AD86 /* MainView.swift in Sources */,
+				3AFF750A29B5BD1F00C7C690 /* PizzaViewModel.swift in Sources */,
 				3AEE19B429B31819009536C1 /* NaviagtionView.swift in Sources */,
 				3AEE19B029B31307009536C1 /* PizzaModel.swift in Sources */,
-				3AEE19B229B31379009536C1 /* PizzaViewModel.swift in Sources */,
+				3A136E8729B64A9000D8C3B4 /* Constants.swift in Sources */,
+				3AEE19B229B31379009536C1 /* DataStore.swift in Sources */,
 				3A599A4429B1CF1E0036AD86 /* AddNewPizzaView.swift in Sources */,
 				3A599A4229B1CD8A0036AD86 /* FavouriteView.swift in Sources */,
 				3A599A3129B1CD5E0036AD86 /* PizzaAppApp.swift in Sources */,

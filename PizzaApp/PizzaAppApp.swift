@@ -12,6 +12,7 @@ struct PizzaAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(PizzaViewModel())
         }
     }
 }
